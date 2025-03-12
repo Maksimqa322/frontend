@@ -6,7 +6,7 @@ const App = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:3000/route", {
+      const response = await fetch("http://127.0.0.1:3001/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
