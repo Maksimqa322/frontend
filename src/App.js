@@ -21,9 +21,9 @@ const App = () => {
       console.log("Response status:", response.status, response.statusText);
 
       if (response.ok) {
-        const result = await response.json();
-        console.log("Response data:", result); // Логируем успешный ответ
-        setResponseMessage(`Success: ${result.message}`);
+        const text = await response.text();
+        console.log("Response data:", text); // Логируем успешный ответ
+        setResponseMessage(`Success: ${text}`);
       } else {
         // Логируем ошибку, если ответ не OK
         console.error("Server error:", response.statusText);
@@ -49,7 +49,9 @@ const App = () => {
       <button onClick={handleSubmit} style={{ padding: "10px 20px" }}>
         Send
       </button>
-      {responseMessage && <p style={{ marginTop: "20px" }}>{responseMessage}</p>}
+      {responseMessage && (
+        <p style={{ marginTop: "20px" }}>{responseMessage}</p>
+      )}
     </div>
   );
 };
