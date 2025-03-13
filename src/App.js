@@ -6,6 +6,9 @@ const App = () => {
 
   const handleSubmit = async () => {
     try {
+      // Логируем отправку данных
+      console.log("Sending data:", inputValue);
+
       const response = await fetch("http://192.168.1.65:3001/messages", {
         method: "POST",
         headers: {
@@ -14,14 +17,22 @@ const App = () => {
         body: JSON.stringify({ data: inputValue }),
       });
 
+      // Логируем ответ сервера
+      console.log("Response status:", response.status, response.statusText);
+
       if (response.ok) {
         const result = await response.json();
+        console.log("Response data:", result); // Логируем успешный ответ
         setResponseMessage(`Success: ${result.message}`);
       } else {
+        // Логируем ошибку, если ответ не OK
+        console.error("Server error:", response.statusText);
         setResponseMessage(`Error: ${response.statusText}`);
       }
     } catch (error) {
-      setResponseMessage(`Error: ${JSON.stringify(error)}`);
+      // Логируем ошибку, если что-то пошло не так
+      console.error("Fetch error:", error);
+      setResponseMessage(`Error: ${error.message}`);
     }
   };
 
