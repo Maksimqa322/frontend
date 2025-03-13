@@ -14,7 +14,7 @@ const App = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data: inputValue }),
+        body: JSON.stringify({ message: inputValue }),
       });
 
       // Логируем ответ сервера
