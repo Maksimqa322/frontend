@@ -2,21 +2,33 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: registry.gitlab.com/username/project-name/frontend:latest
     ports:
       - "8080:80" # Мапим порт 80 nginx на 8080 хоста
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: registry.gitlab.com/username/project-name/backend:latest
     ports:
       - "3001:3001" # Мапим порт 3001 приложения на хост
     environment:
-      - DATABASE_HOST=<IP_СЕРВЕРА>
-      - DATABASE_PORT=5432
-      - DATABASE_USER=<ИМЯ_ПОЛЬЗОВАТЕЛЯ>
-      - DATABASE_PASSWORD=<ПАРОЛЬ>
-      - DATABASE_NAME=<ИМЯ_БАЗЫ_ДАННЫХ>
+      - DATABASE_HOST=192.168.1.100 # IP сервера базы данных
+      - DATABASE_PORT=5432 # Порт PostgreSQL
+      - DATABASE_USER=myuser # Имя пользователя базы данных
+      - DATABASE_PASSWORD=mypassword # Пароль базы данных
+      - DATABASE_NAME=mydatabase # Имя базы данных
+
+  # Добавьте базу данных в Docker-сеть, если она должна быть локальной
+  database:
+    image: postgres:15
+    container_name: database
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432" # Мапим порт PostgreSQL
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
