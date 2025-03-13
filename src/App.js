@@ -6,7 +6,7 @@ const App = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:3001/messages", {
+      const response = await fetch("http://192.168.1.65:3001/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,7 +21,7 @@ const App = () => {
         setResponseMessage(`Error: ${response.statusText}`);
       }
     } catch (error) {
-      setResponseMessage(`Error: ${error.message}`);
+      setResponseMessage(`Error: ${JSON.stringify(error)}`);
     }
   };
 
