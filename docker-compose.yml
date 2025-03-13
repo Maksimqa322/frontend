@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # Мапим порт 80 nginx на 8080 хоста
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001" # Мапим порт 3001 приложения на хост
+    environment:
+      - DATABASE_HOST=<IP_СЕРВЕРА>
+      - DATABASE_PORT=5432
+      - DATABASE_USER=<ИМЯ_ПОЛЬЗОВАТЕЛЯ>
+      - DATABASE_PASSWORD=<ПАРОЛЬ>
+      - DATABASE_NAME=<ИМЯ_БАЗЫ_ДАННЫХ>
