@@ -9,7 +9,7 @@ const App = () => {
       // Логируем отправку данных
       console.log("Sending data:", inputValue);
 
-      const response = await fetch("http://192.168.1.65:3001/messages", {
+      const response = await fetch("/api/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
